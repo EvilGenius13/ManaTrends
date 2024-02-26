@@ -1,6 +1,7 @@
 require_relative 'base_controller'
 require_relative '../services/steam_service'
 require_relative '../services/database_service'
+require_relative '../models/game'
 
 class SteamController < BaseController
   def initialize
@@ -28,18 +29,24 @@ class SteamController < BaseController
   def game_data(req)
     if req.params['id']
       appid = req.params['id'].to_i
-      game_data = @db_service.find_game(appid)
+      game = Game.find(appid)
       
-      puts "Game data from DB: #{game_data.inspect}"
-      
-      if game_data.nil?
+      if game.nil?
         puts "Fetching from Steam service"
         game_data = @steam_service.fetch_game_data(appid)
-        @db_service.save_game(appid, game_data) unless game_data.nil?
+        unless game_data.nil?
+          game = Game.new(appid: appid, name: game_data['name'], description: game_data['description'], image: game_data['image'], developer: game_data['developer'])
+          game.save
+        end
       end
   
-      if game_data
-        response(game_data)
+      if game
+        response({
+          'name' => game.name,
+          'description' => game.description,
+          'image' => game.image,
+          'developer' => game.developer
+        })
       else
         response({"error" => "Game data not found for appid #{appid}"}, status: 404)
       end
