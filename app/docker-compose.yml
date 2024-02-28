@@ -1,0 +1,14 @@
+version: '3.7'
+# Development environment for ScyllaDB, Redis, and Axiom Starfire
+services:
+  scylla:
+    image: scylladb/scylla:5.2
+    container_name: scylla_db
+    command: --developer-mode=1 --smp 1
+    ports:
+      - "9042:9042"
+    volumes:
+      - scylla_api_data:/var/lib/scylla
+          
+volumes:
+  scylla_api_data:

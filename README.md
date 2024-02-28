@@ -52,9 +52,6 @@ The use of Hydra for concurrent requests resulted in a substantial performance i
 ### TODO
 - [X] Basic Steam Setup
 - [ ] Logger Setup
-- [ ] Database Setup
-- [ ] Add a description
-- [ ] Add a description
+- [X] Database Setup
 - [ ] Stormgate API
 - [ ] Twitch API
-- [ ] Swagger-Blocks https://github.com/fotinakis/swagger-blocks
