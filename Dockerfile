@@ -4,11 +4,14 @@ FROM ruby:3.2.2
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
+# Install dependencies for native extensions
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev cassandra-cpp-driver-dev
+
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
 
 # Install any needed packages specified in Gemfile
-RUN bundle install
+RUN bundle install --verbose
 
 # Make port 9292 available to the world outside this container
 EXPOSE 9292
