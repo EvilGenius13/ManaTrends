@@ -1,5 +1,6 @@
 # ManaTrends
 Gaming analytics
+Logo soon
 
 ## Description
 HTTP system: https://github.com/typhoeus/typhoeus
