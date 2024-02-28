@@ -4,8 +4,15 @@ FROM ruby:3.2.2
 # Set the working directory in the container
 WORKDIR /usr/src/app
 
-# Install dependencies for native extensions
-RUN apt-get update -qq && apt-get install -y build-essential libpq-dev cassandra-cpp-driver-dev
+# Install dependencies required for adding a new repository
+RUN apt-get update -qq && apt-get install -y apt-transport-https gnupg2 curl
+
+# Add the DataStax repository for the Cassandra C++ driver
+RUN curl -fsSL https://downloads.datastax.com/cpp-driver/debian/$(. /etc/os-release; echo $VERSION_CODENAME)/cassandra/v2.17.0/pubkey.gpg | apt-key add - \
+  && echo "deb https://downloads.datastax.com/cpp-driver/debian/$(. /etc/os-release; echo $VERSION_CODENAME)/cassandra/v2.17.0 $(. /etc/os-release; echo $VERSION_CODENAME) main" | tee -a /etc/apt/sources.list.d/cassandra-cpp-driver.list
+
+# Update package lists again and install the Cassandra C++ driver
+RUN apt-get update -qq && apt-get install -y cassandra-cpp-driver cassandra-cpp-driver-dev
 
 # Copy the current directory contents into the container at /usr/src/app
 COPY . .
