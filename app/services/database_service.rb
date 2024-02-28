@@ -35,7 +35,6 @@ class DatabaseService
     image = data['image']
     developer = data['developer']
 
-    #TODO: check on pulling from DB now as there is an issue
     prepared = @session.prepare("INSERT INTO steam_game (app_id, name, description, image, developer) VALUES (?, ?, ?, ?, ?)")
     @session.execute(prepared, arguments: [appid_int, name, description, image, developer])
 

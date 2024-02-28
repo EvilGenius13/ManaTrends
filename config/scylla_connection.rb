@@ -45,6 +45,7 @@ begin
       )
     """
   )
+
   puts "Connected to ScyllaDB and ensured 'steam_game' table exists."
 rescue Cassandra::Errors::NoHostsAvailable => e
   puts "Failed to connect to ScyllaDB: #{e.message}"
