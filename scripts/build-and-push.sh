@@ -2,7 +2,7 @@
 
 cd "$(dirname "$0")/.."
 
-docker-compose build app
+docker-compose -p dev-build build app
 
 docker tag "dev-build_app" "evilgenius13/manatrends:latest"
 
