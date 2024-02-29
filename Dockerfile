@@ -8,7 +8,7 @@ WORKDIR /usr/src/app
 COPY . .
 
 # Install any needed packages specified in Gemfile
-RUN bundle install
+RUN bundle install --verbose
 
 # Make port 9292 available to the world outside this container
 EXPOSE 9292
