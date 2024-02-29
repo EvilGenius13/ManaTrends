@@ -1,11 +1,19 @@
 require 'dotenv/load'
 require 'cassandra'
 
-# Initialize ScyllaDB connection
-cluster = Cassandra.cluster(
+Dotenv.load
+
+if ENV['RACK_ENV'] = 'development'
+  cluster = Cassandra.cluster(
   hosts: ['127.0.0.1'],
   port: 9042
-)
+  )
+else
+  cluster = Cassandra.cluster(
+  hosts: ['scylla'],
+  port: 9042
+  )
+end
 
 # Function to create keyspace if it doesn't exist
 def create_keyspace(session)
