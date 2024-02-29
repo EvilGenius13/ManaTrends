@@ -3,7 +3,7 @@ require 'cassandra'
 
 Dotenv.load
 
-if ENV['RACK_ENV'] = 'development'
+if ENV['RACK_ENV'] == 'development'
   cluster = Cassandra.cluster(
   hosts: ['127.0.0.1'],
   port: 9042
