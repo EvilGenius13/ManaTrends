@@ -10,6 +10,8 @@ if ENV['RACK_ENV'] == 'development'
   )
 else
   cluster = Cassandra.cluster(
+  username: 'testing',
+  password: 'password',
   hosts: ['scylla'],
   port: 9042
   )
